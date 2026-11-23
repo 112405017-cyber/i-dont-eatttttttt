@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#29215a">
+<title>我不吃！｜口味默契挑戰</title>
+<style>
+:root{color-scheme:light;--ink:#211849;--purple:#5031b7;--muted:#625985;--paper:#fcfaff;--soft:#ece4ff;--yellow:#f7dc61;--line:#d8ccef}
+*{box-sizing:border-box}
+body{min-height:100svh;margin:0;background:#e8defb;color:var(--ink);font:1rem/1.55 system-ui,"Noto Sans TC","Microsoft JhengHei",sans-serif}
+button{font:inherit}button{cursor:pointer}button:disabled{cursor:default;opacity:.5}
+button:focus-visible,summary:focus-visible{outline:3px solid #8356e7;outline-offset:4px}
+header{background:var(--ink);color:#fff}
+.top{max-width:67rem;margin:auto;padding:.85rem clamp(1rem,4vw,2rem);display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.brand{background:none;border:0;color:inherit;font-weight:900;padding:.2rem 0;font-size:1.15rem;letter-spacing:.035em}
+.brand span{color:var(--yellow)}
+#mode{font-size:.875rem}
+main{width:min(100% - 2rem,57rem);margin:clamp(1.6rem,6vw,4.3rem) auto}
+.panel{background:var(--paper);border:1px solid var(--ink);border-radius:1.6rem;box-shadow:0 6px 0 var(--ink);overflow:hidden}
+.intro{display:grid;grid-template-columns:1.15fr 1fr;min-height:26rem}
+.intro-copy,.inner{padding:clamp(1.25rem,4.5vw,3rem)}
+.intro-copy{align-self:center}
+.tag{font-size:.875rem;font-weight:800;color:var(--purple);margin:0 0 .7rem}
+h1,h2,p{margin-top:0}
+h1,h2{line-height:1.22;letter-spacing:-.035em}
+.intro h1{font-size:clamp(3rem,7vw,5.4rem);font-weight:950;margin:0 0 .75rem}
+h1{font-size:clamp(1.85rem,5vw,2.8rem);margin-bottom:.8rem}
+h2{font-size:1.3rem}
+p{color:var(--muted)}
+.stats{display:flex;flex-wrap:wrap;gap:.45rem 1.1rem;font-weight:750;margin:1.25rem 0 .95rem}
+.stats b{color:var(--purple);font-size:1.3rem}
+.actions{display:flex;flex-wrap:wrap;align-items:center;gap:.65rem}
+.primary,.secondary{border-radius:.8rem;min-height:46px;padding:.65rem 1.05rem;font-weight:750;border:1px solid var(--purple)}
+.primary{background:var(--purple);color:white}
+.secondary{background:var(--paper);color:var(--purple)}
+.primary:hover:not(:disabled){background:#40238f}
+.secondary:hover{background:#f1eaff}
+.art{display:grid;place-items:center;min-height:18rem;background:repeating-conic-gradient(#f9e78f 0% 25%,#f7dc61 0% 50%) 50% / 45px 45px;border-left:1px solid var(--ink);overflow:hidden}
+.plate{width:min(72%,18rem);aspect-ratio:1;position:relative;display:grid;place-items:center;background:#fcfaff;border:2px solid var(--ink);border-radius:50%;box-shadow:7px 10px 0 #49347855;transform:rotate(-8deg);isolation:isolate}
+.plate:before{content:"";position:absolute;inset:12%;border:2px dashed #aa92e7;border-radius:50%;background:#f1eaff;z-index:-1}
+.food{display:grid;grid-template-columns:repeat(2,1fr);place-items:center;gap:0 .35rem;font-size:clamp(2rem,6vw,3.6rem);line-height:1.08}
+.food span:nth-child(2n){transform:rotate(15deg)}
+.quiz{max-width:49rem;margin:auto}
+.qmeta,.qfoot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:.7rem}
+.qmeta{font-size:.92rem;font-weight:800;color:var(--purple)}
+.track{height:.55rem;background:var(--soft);border-radius:99px;overflow:hidden;margin:.65rem 0 1.5rem}
+.track>span{display:block;height:100%;background:var(--purple)}
+.question{font-size:clamp(1.5rem,4.2vw,2.45rem);margin:0 0 .46rem}
+.context{margin-bottom:1rem}
+.menu{display:block;max-width:100%;max-height:23rem;width:auto;height:auto;object-fit:contain;border:1px solid var(--line);border-radius:.75rem;margin:0 auto 1.15rem}
+.options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem;margin:1.15rem 0 1.4rem}
+.option{display:flex;align-items:center;gap:.65rem;min-height:3.65rem;padding:.7rem;text-align:left;color:var(--ink);background:white;border:1px solid var(--line);border-radius:.8rem;font-weight:650}
+.option:hover{background:#f6f0ff;border-color:var(--purple)}
+.option[aria-pressed=true]{border:2px solid var(--purple);padding:calc(.7rem - 1px);background:var(--soft)}
+.letter{color:var(--purple);background:var(--soft);border-radius:.4rem;display:grid;place-items:center;width:1.9rem;height:1.9rem;flex:none;font-size:.875rem}
+.option[aria-pressed=true] .letter{background:var(--purple);color:white}
+.qfoot .primary{margin-left:auto}
+.score{font-size:clamp(3.2rem,10vw,6rem);font-weight:950;color:var(--purple);line-height:1.1;margin-bottom:.7rem}
+.score small{font-size:.36em;color:var(--muted)}
+.review{margin-top:1.5rem;border-top:1px solid var(--line);padding-top:1rem}
+.review summary{cursor:pointer;color:var(--purple);font-weight:800}
+.review ol{padding-left:1.35rem}
+.review li{margin-bottom:.75rem;padding:.1rem .2rem}
+.review li p{margin:.15rem 0 0}
+strong.good{color:#285c43}strong.miss{color:#94294c}
+@media(max-width:650px){main{margin:1.25rem auto 2rem}.intro{grid-template-columns:1fr}.art{border-left:0;border-top:1px solid var(--ink);min-height:13rem}.plate{width:10rem}.options{grid-template-columns:1fr}.top{padding-inline:1rem}}
+@media(max-width:345px){.actions button{width:100%}}
+</style>
+</head>
+<body>
+<header><div class="top"><button id="home" class="brand" type="button">我不吃<span>！</span></button><span id="mode">口味默契挑戰</span></div></header>
+<main id="app" tabindex="-1"></main>
+<script>
+const eat = (food, answer) => ({
+  prompt: `我會吃「${food}」嗎？`, options: ['吃', '不吃'], points: 3, answer
+});
+const choose = (prompt, options, answer, extra = {}) => ({
+  prompt, options, points: 4, answer, ...extra
+});
+const multi = (prompt, options, answer) => ({
+  prompt, options, points: 5, answer, multiple: true
+});
+const teaOptions = ['無糖去冰', '無糖微冰', '微糖微冰', '半糖少冰'];
+const questions = [
+  eat('茄子', 0), eat('桑葚', 1), eat('楊桃', 1), eat('麵輪', 1),
+  eat('綠豆椪', 1), eat('壽桃', 1), eat('發糕', 1), eat('千層酥', 0),
+  eat('紫米', 1), eat('蓮藕', 1), eat('青椒', 0), eat('薏仁', 1),
+  eat('龍眼', 1), eat('肉桂', 1), eat('櫻桃', 0),
+  choose('我早餐通常會點哪一組？', ['培根蛋餅＋紅茶', '起司蛋餅＋美式', '牛肉漢堡＋柳橙汁', '巧克力吐司＋豆漿'], 1),
+  choose('點茶類飲料時，我會選什麼甜度和冰塊？', teaOptions, 1),
+  choose('點奶類飲料時，我會選什麼甜度和冰塊？', teaOptions, 2),
+  choose('這幾種甜點中，我會優先選哪一種？', ['蒙布朗', '檸檬塔', '抹茶千層', '草莓塔'], 0),
+  choose('我去麥當勞會點哪個套餐？', ['麥香魚＋薯條＋無糖綠茶', '大麥克＋薯條＋可樂', '麥脆鷄腿＋薯條＋雪碧', '麥克雞塊＋薯條＋玉米湯'], 3),
+  choose('這張菜單上，有幾種菜色我不吃？', ['3 種', '3.5 種', '4.5 種', '4 種'], 1, {
+    image: 'menu-000.webp', alt: '含炒海瓜子、蔥爆牛肉、五更腸旺、客家小炒、三杯雞、菜脯蛋、炒高麗菜、宮保雞丁和鳳梨蝦球的菜單',
+    context: '如果一道菜只會挑掉部分食材，可以算半種。'
+  }),
+  choose('這盤火鍋配菜裡，有幾種我不吃？', ['3 種', '4 種', '5 種', '6 種'], 2, {
+    image: 'menu-001.webp', alt: '一盤放有多種蔬菜、豆腐和其他食材的火鍋配菜'
+  }),
+  choose('吃剉冰時，我最可能選哪三種配料？', ['湯圓、蒟蒻、綠豆', '愛玉、珍珠、蒟蒻', '椰果、珍珠、花生', '芋圓、仙草、粉粿'], 1, {
+    image: 'menu-002.webp', alt: '剉冰配料圖，包含愛玉、仙草、蒟蒻、椰果、湯圓、芋圓、煉乳、粉粿、薏仁、珍珠粉圓、紅豆綠豆和花生'
+  }),
+  choose('這盒麵包裡，有幾種我不吃？', ['2 種', '3 種', '4 種', '5 種'], 2, {
+    image: 'menu-003.webp', alt: '打開的麵包禮盒，裡面有多種麵包'
+  }),
+  choose('這張圖裡，有幾種便當菜是我可能會選的？', ['3 種', '4 種', '5 種', '6 種'], 0, {
+    image: 'menu-004.webp', alt: '便當配菜圖，有螢光咖哩、三色豆、滷海帶蘿蔔、辣筍或桂竹筍、紅燒茄子、毛豆炒豆乾、豆枝或豆棗、紅蘿蔔炒蛋、電話線、洋蔥炒蛋、辣菜脯和油菜'
+  }),
+  multi('買滷味時，我會主動夾哪些配料？', ['海帶', '豆干', '素肌', '鳥蛋', '甜不辣'], [1, 3]),
+  multi('買鹹酥雞時，我會主動吃哪些？', ['小肉豆', '炸魷魚', '薯條', '雞皮', '鹹酥雞'], [2, 3, 4]),
+  multi('吃冰淇淋時，我可能會選哪些口味？', ['夏威夷果仁', '巧克力棉花糖', '綜合莓果', '太妃糖起司', '熱帶水果'], [1, 4])
+];
+const maxScore = questions.reduce((sum, q) => sum + q.points, 0);
+const letters = 'ABCDE';
+const app = document.getElementById('app');
+let screen = 'intro';
+let position = 0;
+let selections = [];
+let advanceTimer = null;
+
+function make(tag, content, className) {
+  const node = document.createElement(tag);
+  if (content) node.textContent = content;
+  if (className) node.className = className;
+  return node;
+}
+function action(label, handler, style = 'primary') {
+  const button = make('button', label, style);
+  button.type = 'button';
+  button.addEventListener('click', handler);
+  return button;
+}
+function show(panel, name) {
+  if (advanceTimer !== null) {
+    clearTimeout(advanceTimer);
+    advanceTimer = null;
+  }
+  screen = name;
+  app.replaceChildren(panel);
+  app.querySelector('h1').focus();
+}
+function title(label, className) {
+  const node = make('h1', label, className);
+  node.tabIndex = -1;
+  return node;
+}
+function image(q, className) {
+  const element = make('img', '', className);
+  element.src = q.image;
+  element.alt = q.alt;
+  return element;
+}
+function intro() {
+  const panel = make('div', '', 'panel intro');
+  const copy = make('div', '', 'intro-copy');
+  const tags = make('div', '', 'stats');
+  tags.innerHTML = `<span><b>${questions.length}</b> 題</span><span>滿分 <b>${maxScore}</b></span>`;
+  const buttons = make('div', '', 'actions');
+  buttons.append(action('開始遊戲', start));
+  copy.append(make('p', '口味默契挑戰', 'tag'), title('我不吃！'),
+    make('p', '一樣食物、一道菜，猜猜我會吃還是不吃？選完所有題目，就知道你有多懂我的菜單。'),
+    tags, buttons);
+  const art = make('div', '', 'art');
+  art.setAttribute('aria-hidden', 'true');
+  art.innerHTML = '<div class="plate"><div class="food"><span>🍆</span><span>🍒</span><span>🍰</span><span>🍟</span></div></div>';
+  panel.append(copy, art);
+  show(panel, 'intro');
+}
+function start() {
+  selections = questions.map(q => q.multiple ? [] : null);
+  position = 0;
+  question();
+}
+function round(i) {
+  if (i < 15) return '吃不吃';
+  if (i < 20) return '吃哪個';
+  if (i < 25) return '看圖猜';
+  return '多選題';
+}
+function advance() {
+  if (position === questions.length - 1) {
+    result();
+    return;
+  }
+  position++;
+  question();
+}
+function question() {
+  const i = position;
+  const q = questions[i];
+  const panel = make('div', '', 'panel quiz inner');
+  const meta = make('div', '', 'qmeta');
+  meta.append(make('span', `第 ${i + 1} / ${questions.length} 題`),
+    make('span', `${round(i)} · ${q.points} 分`));
+  const track = make('div', '', 'track');
+  track.setAttribute('aria-hidden', 'true');
+  const fill = make('span');
+  fill.style.width = `${100 * (i + 1) / questions.length}%`;
+  track.append(fill);
+  panel.append(meta, track, title(q.prompt, 'question'));
+  if (i === 0) panel.append(make('p', '單選題選完就會自動跳到下一題。', 'context'));
+  if (q.multiple) panel.append(make('p', '可以選多項。錯選或漏選一個都扣 2 分，最低 0 分。', 'context'));
+  if (q.context) panel.append(make('p', q.context, 'context'));
+  if (q.image) panel.append(image(q, 'menu'));
+  const options = make('div', '', 'options');
+  options.setAttribute('role', 'group');
+  options.setAttribute('aria-label', '選項');
+  const next = q.multiple
+    ? action(i === questions.length - 1 ? '選好了，公布得分' : '選好了', advance)
+    : null;
+  if (next) next.disabled = selections[i].length === 0;
+  q.options.forEach((label, index) => {
+    const button = action('', () => {
+      if (next) {
+        const picked = selections[i];
+        selections[i] = picked.includes(index) ? picked.filter(value => value !== index) : [...picked, index];
+        button.setAttribute('aria-pressed', String(selections[i].includes(index)));
+        next.disabled = selections[i].length === 0;
+        return;
+      }
+      if (advanceTimer !== null) return;
+      selections[i] = index;
+      for (const item of options.children) item.setAttribute('aria-pressed', String(item === button));
+      advanceTimer = setTimeout(advance, 220);
+    }, 'option');
+    button.setAttribute('aria-pressed', String(q.multiple ? selections[i].includes(index) : selections[i] === index));
+    const letter = make('span', letters[index], 'letter');
+    letter.setAttribute('aria-hidden', 'true');
+    button.append(letter, make('span', label));
+    options.append(button);
+  });
+  const controls = make('div', '', 'qfoot');
+  if (i > 0) controls.append(action('上一題', () => { position--; question(); }, 'secondary'));
+  if (next) controls.append(next);
+  panel.append(options);
+  if (controls.children.length) panel.append(controls);
+  show(panel, 'quiz');
+}
+function scoreQuestion(q, picked, answer) {
+  if (!q.multiple) return picked === answer ? q.points : 0;
+  const wrong = picked.filter(value => !answer.includes(value)).length;
+  const missed = answer.filter(value => !picked.includes(value)).length;
+  return Math.max(0, q.points - 2 * (wrong + missed));
+}
+function answerText(q, choice) {
+  if (!q.multiple) return q.options[choice];
+  return q.options.filter((_, index) => choice.includes(index)).join('、');
+}
+function result() {
+  const answers = questions.map(q => q.answer);
+  const scores = questions.map((q, i) => scoreQuestion(q, selections[i], answers[i]));
+  const points = scores.reduce((sum, value) => sum + value, 0);
+  const correct = scores.filter((value, i) => value === questions[i].points).length;
+  const panel = make('div', '', 'panel quiz inner');
+  const score = make('div', String(points), 'score');
+  score.append(make('small', ` / ${maxScore} 分`));
+  const description = `共 ${questions.length} 題，其中 ${correct} 題拿到滿分。`;
+  const buttons = make('div', '', 'actions');
+  buttons.append(action('再玩一次', start), action('回首頁', intro, 'secondary'));
+  const review = make('details', '', 'review');
+  review.append(make('summary', '看逐題答案'));
+  const list = make('ol');
+  questions.forEach((q, i) => {
+    const item = make('li', q.prompt);
+    const details = make('p', `你選了「${answerText(q, selections[i])}」 · 正確答案「${answerText(q, answers[i])}」`);
+    item.append(details, make('strong', `${scores[i]} / ${q.points} 分`, scores[i] === q.points ? 'good' : 'miss'));
+    list.append(item);
+  });
+  review.append(list);
+  panel.append(title('默契成績'), score, make('p', description), buttons, review);
+  show(panel, 'result');
+}
+document.getElementById('home').addEventListener('click', () => {
+  if (screen !== 'quiz' || window.confirm('回到首頁會結束這一局。要回首頁嗎？')) intro();
+});
+intro();
+</script>
+</body>
+</html>
